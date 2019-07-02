@@ -45,7 +45,6 @@ http {
         # Load configuration files for the default server block.
         include /etc/nginx/default.d/*.conf;
 
-
         # look here for inspiration on dynamic dns resolving
         # https://distinctplace.com/2017/04/19/nginx-resolver-explained/ 
         location ~ /(?<customerSlug>[a-zA-Z]+) {
