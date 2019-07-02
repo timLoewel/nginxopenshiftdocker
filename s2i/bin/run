@@ -5,7 +5,7 @@
 #	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
 
-# prepare the config from environment variables
+# prepare the config from environment variables, nginx does not know env vars
 sed -i "s/%PROJECT_NAME%/$PROJECT_NAME/" /etc/nginx/nginx.conf
 
 # We will turn off daemonizing for the nginx process so that the container
