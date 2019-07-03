@@ -1,4 +1,6 @@
 
+
+
 # nginx-centos7
 # Here you can use whatever base image is relevant for your application.
 FROM centos:centos7
@@ -11,13 +13,11 @@ LABEL maintainer="tim loewel <tim.loewel@wuerth-it.com>"
 ENV NGINX_VERSION=1.12.2
 
 # Set the labels that are used for OpenShift to describe the builder image.
-LABEL io.k8s.description="Nginx Webserver" \
-    io.k8s.display-name="Nginx 1.12.2" \
+LABEL io.k8s.description="Nginx proxy" \
+    io.k8s.display-name="Nginx $NGINX_VERSION" \
     io.openshift.expose-services="8080:http" \
-    io.openshift.tags="builder,webserver,html,nginx" \
-    # this label tells s2i where to find its mandatory scripts
-    # (run, assemble, save-artifacts)
-    io.openshift.s2i.scripts-url="image:///usr/libexec/s2i"
+    io.openshift.tags="proxy,webserver,html,nginx" 
+
 
 # Install the nginx web server package and clean the yum cache
 RUN yum install -y epel-release && \
@@ -27,8 +27,6 @@ RUN yum install -y epel-release && \
 
 COPY ./src/dockerScripts/entrypoint.sh /usr/local/bin/
 RUN chown nginx:root /usr/local/bin/entrypoint.sh
-
-COPY ./src/healthcheck.html /usr/share/nginx/html
 
 COPY src/nginx.conf.template /etc/nginx
 

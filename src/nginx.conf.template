@@ -52,7 +52,10 @@ http {
 
             
             
-            # %PROJECT_NAME% gets replaced with the env variable $PROJECT_NAME before nginx is started. (nginx.conf does not know env variables)
+            # %PROJECT_NAME% gets replaced  entrypoint.sh with the env variable $PROJECT_NAME before nginx is started. 
+            #  (nginx.conf does not know env variables)
+            # this could maybe be replaced with a template, 
+            # see TEMPLATE_FILE in: https://github.com/nginxinc/nginx-openshift-router/blob/master/src/nginx/Dockerfile
             set $upstream_endpoint https://nextcloud$customerSlug.%PROJECT_NAME%.svc;
             # remove the customerslug from the $request_uri
             rewrite ^/[a-zA-Z]+/(.*) /$1 break;
